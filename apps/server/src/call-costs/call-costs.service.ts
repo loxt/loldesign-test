@@ -30,6 +30,14 @@ export class CallCostsService {
     return this.callCostRepository.findOneOrFail(id);
   }
 
+  async findByOrigin(origin: string) {
+    return await this.callCostRepository.find({
+      where: {
+        origin,
+      },
+    });
+  }
+
   async calculatePriceWithPlan(
     calculatePriceWithPlanInput: CalculatePriceWithPlanInput
   ) {

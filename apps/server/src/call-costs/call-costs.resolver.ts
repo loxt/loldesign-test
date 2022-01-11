@@ -27,6 +27,11 @@ export class CallCostsResolver {
     return this.callCostsService.findOne(id);
   }
 
+  @Query(() => [CallCost], { name: 'callCostByOrigin' })
+  async findByOrigin(@Args('origin', { type: () => String }) origin: string) {
+    return this.callCostsService.findByOrigin(origin);
+  }
+
   @Query(() => CalculatePriceWithPlanOutput, { name: 'calculatePriceWithPlan' })
   async calculatePriceWithPlan(
     @Args('calculatePriceWithPlanInput')
