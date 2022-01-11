@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { GraphQLError } from 'graphql';
 import { CalculatePriceWithPlanInput } from './dto/calculate-price-with-plan.input';
 import { PlansService } from '../plans/plans.service';
-import { ICalculatedPrice, ICallCost, IPlan } from '@loldesign/interfaces';
+import { ICalculatedPrice, IPlan } from '@loldesign/interfaces';
 
 @Injectable()
 export class CallCostsService {
@@ -27,7 +27,13 @@ export class CallCostsService {
   }
 
   async findOne(id: string) {
-    return this.callCostRepository.findOneOrFail(id);
+    const callCost = await this.callCostRepository.findOne(id);
+
+    if (!callCost) {
+      throw new GraphQLError(`A Call Cost with ID ${id} doesn't exists`);
+    }
+
+    return callCost;
   }
 
   async findByOrigin(origin: string) {
@@ -44,21 +50,10 @@ export class CallCostsService {
     const plan: IPlan = await this.plansService.findOne(
       calculatePriceWithPlanInput.plan_id
     );
-    if (!plan) {
-      return new GraphQLError(
-        `A Plan with ID ${calculatePriceWithPlanInput.plan_id} doesn't exist`
-      );
-    }
 
-    const callCost: ICallCost = await this.findOne(
+    const callCost: CallCost = await this.findOne(
       calculatePriceWithPlanInput.call_cost_id
     );
-
-    if (!callCost) {
-      return new GraphQLError(
-        `A Call Cost with ID ${calculatePriceWithPlanInput.call_cost_id} doesn't exist`
-      );
-    }
 
     const calculatedNewPricePerMinute: number =
       (10 / 100) * callCost.price_per_minute;

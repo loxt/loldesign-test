@@ -3,6 +3,7 @@ import { PlansService } from './plans.service';
 import { Plan } from './models/plan.model';
 import { CreatePlanInput } from './dto/create-plan.input';
 import { UpdatePlanInput } from './dto/update-plan.input';
+import { ParseUUIDPipe } from '@nestjs/common';
 
 @Resolver(() => Plan)
 export class PlansResolver {
@@ -19,7 +20,10 @@ export class PlansResolver {
   }
 
   @Query(() => Plan, { name: 'plan' })
-  async findOne(@Args('id', { type: () => String }) id: string) {
+  async findOne(
+    @Args('id', { type: () => String }, new ParseUUIDPipe({ version: '4' }))
+    id: string
+  ) {
     return this.plansService.findOne(id);
   }
 
@@ -29,7 +33,10 @@ export class PlansResolver {
   }
 
   @Mutation(() => Plan)
-  async removePlan(@Args('id', { type: () => String }) id: string) {
+  async removePlan(
+    @Args('id', { type: () => String }, new ParseUUIDPipe({ version: '4' }))
+    id: string
+  ) {
     return this.plansService.remove(id);
   }
 }

@@ -20,8 +20,14 @@ export class PlansService {
     return this.planRepository.find();
   }
 
-  findOne(id: string) {
-    return this.planRepository.findOneOrFail(id);
+  async findOne(id: string) {
+    const plan = await this.planRepository.findOne(id);
+
+    if (!plan) {
+      throw new GraphQLError(`A Plan with ID ${id} doesn't exists`);
+    }
+
+    return plan;
   }
 
   async update(id: string, updatePlanInput: UpdatePlanInput) {

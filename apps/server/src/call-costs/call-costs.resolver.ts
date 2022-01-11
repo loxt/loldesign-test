@@ -5,6 +5,7 @@ import { CreateCallCostInput } from './dto/create-call-cost.input';
 import { UpdateCallCostInput } from './dto/update-call-cost.input';
 import { CalculatePriceWithPlanInput } from './dto/calculate-price-with-plan.input';
 import { CalculatePriceWithPlanOutput } from './dto/calculate-price-with-plan.output';
+import { ParseUUIDPipe } from '@nestjs/common';
 
 @Resolver(() => CallCost)
 export class CallCostsResolver {
@@ -23,7 +24,10 @@ export class CallCostsResolver {
   }
 
   @Query(() => CallCost, { name: 'callCost' })
-  async findOne(@Args('id', { type: () => Int }) id: string) {
+  async findOne(
+    @Args('id', { type: () => Int }, new ParseUUIDPipe({ version: '4' }))
+    id: string
+  ) {
     return this.callCostsService.findOne(id);
   }
 
@@ -53,7 +57,10 @@ export class CallCostsResolver {
   }
 
   @Mutation(() => CallCost)
-  async removeCallCost(@Args('id', { type: () => String }) id: string) {
+  async removeCallCost(
+    @Args('id', { type: () => String }, new ParseUUIDPipe({ version: '4' }))
+    id: string
+  ) {
     return this.callCostsService.remove(id);
   }
 }
