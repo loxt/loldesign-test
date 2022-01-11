@@ -9,27 +9,27 @@ export class PlansResolver {
   constructor(private readonly plansService: PlansService) {}
 
   @Mutation(() => Plan)
-  createPlan(@Args('createPlanInput') createPlanInput: CreatePlanInput) {
+  async createPlan(@Args('createPlanInput') createPlanInput: CreatePlanInput) {
     return this.plansService.create(createPlanInput);
   }
 
   @Query(() => [Plan], { name: 'plans' })
-  findAll() {
+  async findAll() {
     return this.plansService.findAll();
   }
 
   @Query(() => Plan, { name: 'plan' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  async findOne(@Args('id', { type: () => String }) id: string) {
     return this.plansService.findOne(id);
   }
 
   @Mutation(() => Plan)
-  updatePlan(@Args('updatePlanInput') updatePlanInput: UpdatePlanInput) {
+  async updatePlan(@Args('updatePlanInput') updatePlanInput: UpdatePlanInput) {
     return this.plansService.update(updatePlanInput.id, updatePlanInput);
   }
 
   @Mutation(() => Plan)
-  removePlan(@Args('id', { type: () => String }) id: string) {
+  async removePlan(@Args('id', { type: () => String }) id: string) {
     return this.plansService.remove(id);
   }
 }

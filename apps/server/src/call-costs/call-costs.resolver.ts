@@ -3,6 +3,8 @@ import { CallCostsService } from './call-costs.service';
 import { CallCost } from './models/call-cost.model';
 import { CreateCallCostInput } from './dto/create-call-cost.input';
 import { UpdateCallCostInput } from './dto/update-call-cost.input';
+import { CalculatePriceWithPlanInput } from './dto/calculate-price-with-plan.input';
+import { CalculatePriceWithPlanOutput } from './dto/calculate-price-with-plan.output';
 
 @Resolver(() => CallCost)
 export class CallCostsResolver {
@@ -16,17 +18,27 @@ export class CallCostsResolver {
   }
 
   @Query(() => [CallCost], { name: 'callCosts' })
-  findAll() {
+  async findAll() {
     return this.callCostsService.findAll();
   }
 
   @Query(() => CallCost, { name: 'callCost' })
-  findOne(@Args('id', { type: () => Int }) id: string) {
+  async findOne(@Args('id', { type: () => Int }) id: string) {
     return this.callCostsService.findOne(id);
   }
 
+  @Query(() => CalculatePriceWithPlanOutput, { name: 'calculatePriceWithPlan' })
+  async calculatePriceWithPlan(
+    @Args('calculatePriceWithPlanInput')
+    calculatePriceWithPlanInput: CalculatePriceWithPlanInput
+  ) {
+    return this.callCostsService.calculatePriceWithPlan(
+      calculatePriceWithPlanInput
+    );
+  }
+
   @Mutation(() => CallCost)
-  updateCallCost(
+  async updateCallCost(
     @Args('updateCallCostInput') updateCallCostInput: UpdateCallCostInput
   ) {
     return this.callCostsService.update(
@@ -36,7 +48,7 @@ export class CallCostsResolver {
   }
 
   @Mutation(() => CallCost)
-  removeCallCost(@Args('id', { type: () => Int }) id: number) {
+  async removeCallCost(@Args('id', { type: () => String }) id: string) {
     return this.callCostsService.remove(id);
   }
 }

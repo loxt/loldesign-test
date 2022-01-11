@@ -5,9 +5,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IPlan } from '@loldesign/interfaces';
 
 @Entity('plans')
-export class Plan {
+export class Plan implements IPlan {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

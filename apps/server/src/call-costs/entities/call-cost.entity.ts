@@ -5,9 +5,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ICallCost } from '@loldesign/interfaces';
 
 @Entity('call-costs')
-export class CallCost {
+export class CallCost implements ICallCost {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
