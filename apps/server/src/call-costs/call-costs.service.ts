@@ -70,14 +70,16 @@ export class CallCostsService {
         ? newPricePerMinute *
           (calculatePriceWithPlanInput.minutes - plan.free_minutes)
         : 0;
-
     const calculatedPriceOutput: ICalculatedPrice = {
       plan,
       call_cost: callCost,
       minutes: calculatePriceWithPlanInput.minutes,
-      price_without_plan:
-        calculatePriceWithPlanInput.minutes * callCost.price_per_minute,
-      price_with_plan: priceWithPlan,
+      price_without_plan: parseFloat(
+        (
+          calculatePriceWithPlanInput.minutes * callCost.price_per_minute
+        ).toFixed(2)
+      ),
+      price_with_plan: parseFloat(priceWithPlan.toFixed(2)),
     };
 
     return calculatedPriceOutput;

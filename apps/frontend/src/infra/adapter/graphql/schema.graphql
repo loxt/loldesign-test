@@ -1,0 +1,97 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type CalculatePriceWithPlanOutput {
+  "Call Cost details"
+  call_cost: callCosts!
+  "Minutes"
+  minutes: Int!
+  "Plan calculated"
+  plan: Plan!
+  "Price with plan"
+  price_with_plan: Float!
+  "Price without plan"
+  price_without_plan: Float!
+}
+
+type Mutation {
+  createCallCost(createCallCostInput: CreateCallCostInput!): callCosts!
+  createPlan(createPlanInput: CreatePlanInput!): Plan!
+  removeCallCost(id: String!): callCosts!
+  removePlan(id: String!): Plan!
+  updateCallCost(updateCallCostInput: UpdateCallCostInput!): callCosts!
+  updatePlan(updatePlanInput: UpdatePlanInput!): Plan!
+}
+
+type Plan {
+  created_at: String!
+  free_minutes: Int!
+  id: String!
+  name: String!
+  updated_at: String!
+}
+
+type Query {
+  calculatePriceWithPlan(calculatePriceWithPlanInput: CalculatePriceWithPlanInput!): CalculatePriceWithPlanOutput!
+  callCost(id: Int!): callCosts!
+  callCostByOrigin(origin: String!): [callCosts!]!
+  callCosts: [callCosts!]!
+  plan(id: String!): Plan!
+  plans: [Plan!]!
+}
+
+type callCosts {
+  created_at: String!
+  destiny: String!
+  id: String!
+  origin: String!
+  price_per_minute: Float!
+  updated_at: String!
+}
+
+input CalculatePriceWithPlanInput {
+  "Call Cost ID to calculate price"
+  call_cost_id: String!
+  "Minutes to calculate"
+  minutes: Int!
+  "Plan ID to calculate price"
+  plan_id: String!
+}
+
+input CreateCallCostInput {
+  "Call destiny"
+  destiny: String!
+  "Call origin"
+  origin: String!
+  "Call price per minute cost"
+  price_per_minute: Float!
+}
+
+input CreatePlanInput {
+  "Free minutes"
+  free_minutes: Int!
+  "Plan name"
+  name: String!
+}
+
+input UpdateCallCostInput {
+  "Call destiny"
+  destiny: String
+  id: String!
+  "Call origin"
+  origin: String
+  "Call price per minute cost"
+  price_per_minute: Float
+}
+
+input UpdatePlanInput {
+  "Free minutes"
+  free_minutes: Int
+  id: String!
+  "Plan name"
+  name: String
+}
