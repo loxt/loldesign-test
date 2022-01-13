@@ -23,13 +23,13 @@
       transition: all 0.3s;
 
       a {
-        color: #000;
+        color: #fff;
         text-decoration: none;
       }
 
       cursor: pointer;
       &:hover {
-        border-bottom-color: darken($color-primary, 40%);
+        border-bottom-color: #fff;
       }
     }
   }
@@ -50,15 +50,17 @@
         border: 1px solid $color-primary;
         border-radius: 1rem;
         padding: 1rem;
+        box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.5);
 
         &-name {
-          color: $color-primary;
+          color: #fff;
           font-size: 2rem;
         }
 
         &-free-minutes {
           font-size: 1.6rem;
           margin-bottom: 2rem;
+          color: #fff;
         }
 
         &-calculate-price {
@@ -79,8 +81,12 @@
     }
   }
 
+  span {
+    color: #fff;
+  }
+
   .calculate-price {
-    margin-top: 4rem;
+    margin: 4rem 0;
 
     .options {
       display: grid;
@@ -91,24 +97,38 @@
         display: grid;
 
         label {
+          color: #fff;
           font-size: 1.6rem;
         }
       }
 
       select {
         cursor: pointer;
+
+        option {
+          background-color: darken($color-primary, 10%);
+
+          &:hover,
+          &:checked,
+          &:focus,
+          &:target {
+            box-shadow: 0 0 10px 100px black inset;
+          }
+        }
       }
 
       select,
       input,
       button {
+        box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.5);
+
         font-size: 1.6rem;
         padding: 1rem;
         border-radius: 0.6rem;
 
         border: 1px solid $color-primary;
-        color: $color-primary;
-        background-color: #fff;
+        color: #fff;
+        background-color: transparent;
         &::placeholder {
           color: $color-primary;
         }
@@ -126,6 +146,8 @@
         cursor: pointer;
         margin-top: 1.4rem;
 
+        text-transform: uppercase;
+        font-weight: 900;
         transition: all 0.3s;
         &:hover {
           color: #fff;
@@ -157,7 +179,7 @@
         color: #fff;
 
         span {
-          color: #000;
+          color: #fff;
           font-weight: 700;
           text-transform: uppercase;
         }

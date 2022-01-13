@@ -46,8 +46,6 @@ export default function Home() {
     minutesSelected
   );
 
-  console.log(calculatedPriceQueryStatus, calculatedPrice);
-
   const optionChangeListener = (
     value,
     type: 'callCost' | 'minutes' | 'plan'
@@ -70,7 +68,7 @@ export default function Home() {
             height="44px"
             layout="fixed"
             objectFit="cover"
-            src="/img/logo.png"
+            src="/img/logo-white.png"
             alt="Logo LOLDesign"
           />
 

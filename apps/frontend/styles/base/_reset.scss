@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+@import '../utils/variables';
 
 *,
 *::after,
@@ -19,5 +20,7 @@ body {
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
-  background-color: #fafafa;
+  background: linear-gradient(180deg, rgba(#000, 0.5), rgba(#000, 0.8)),
+    url('/img/background.jpg') center no-repeat;
+  background-size: cover;
 }
